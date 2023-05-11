@@ -29,7 +29,8 @@ public class ControladorMarcadores {
 
     @FXML
     private Label equipo4;
- @FXML
+
+    @FXML
     private Label equipo5;
 
     @FXML

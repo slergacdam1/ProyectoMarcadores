@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.controladorArticuloNoticias">
+   <top>
+      <Label fx:id="titulo" text="TITULO NOTICIA" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <Label fx:id="texto" text="Label" BorderPane.alignment="CENTER" />
+   </center>
+   <right>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <HBox prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="scenaMarcadores" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="MARCADORES" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="scenaNoticias" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="NOTICIAS" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+</BorderPane>
