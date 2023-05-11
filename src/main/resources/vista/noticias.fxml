@@ -32,7 +32,7 @@
             <Insets left="155.0" />
          </GridPane.margin>
       </ImageView>
-      <Label maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="132.0" text="NOTICIA1" GridPane.rowIndex="1" />
+      <Label maxHeight="1.7976931348623157E308" onMouseClicked="#onLeerNoticia" prefHeight="80.0" prefWidth="132.0" text="NOTICIA1" GridPane.rowIndex="1" />
       <ImageView fitHeight="80.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="150.0" />
