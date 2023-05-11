@@ -18,16 +18,16 @@ import java.time.format.DateTimeFormatter;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/vista/marcadores.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/vista/hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
-        stage.setOnShown(event -> {
+       /* stage.setOnShown(event -> {
             Label fechaLabel = (Label) scene.lookup("#fecha");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate fechaActual = LocalDate.now();
             String fechaFormateada = fechaActual.format(formatter);
             fechaLabel.setText(fechaFormateada);
-        });
+        });*/
 
        /* stage.setOnShown(event -> {
             // Aquí se muestra la noticia en el Label cuando se abre la ventana
