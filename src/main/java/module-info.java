@@ -6,4 +6,6 @@ module com.example.pantallalog {
 
     opens com.example.pantallalog to javafx.fxml;
     exports com.example.pantallalog;
+    opens controlador to javafx.fxml;
+    exports controlador;
 }
