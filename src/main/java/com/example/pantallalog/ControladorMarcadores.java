@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ControladorMarcadores {
 
@@ -96,6 +97,20 @@ public class ControladorMarcadores {
             stage.setTitle("- Ejemplo sencillo de aplicación JavaFX -");
             stage.setScene(scene);
             stage.show();
+            stage.setOnShown(windowEvent ->{
+                Label fechaLabel = (Label) scene.lookup("#fecha");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate fechaActual = LocalDate.now();
+                String fechaFormateada = fechaActual.format(formatter);
+                fechaLabel.setText(fechaFormateada);
+            } );
+            /* stage.setOnShown(event -> {
+            Label fechaLabel = (Label) scene.lookup("#fecha");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate fechaActual = LocalDate.now();
+            String fechaFormateada = fechaActual.format(formatter);
+            fechaLabel.setText(fechaFormateada);
+        });*/
 
         } catch (IOException e) {
             throw new RuntimeException(e);
