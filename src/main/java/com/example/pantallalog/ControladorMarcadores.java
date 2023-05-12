@@ -61,6 +61,13 @@ public class ControladorMarcadores {
     private Button botonNoticias;
 
 
+    public void initialize() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fechaActual = LocalDate.now();
+        String fechaFormateada = fechaActual.format(formatter);
+        fecha.setText(fechaFormateada);
+    }
+
     @FXML
     void onSetFecha(MouseEvent event) {
         LocalDate fechaActual = LocalDate.now();
