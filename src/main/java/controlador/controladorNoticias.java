@@ -6,18 +6,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.jsoup.Jsoup;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.jsoup.select.Elements;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class controladorNoticias {
 
@@ -108,16 +104,10 @@ public class controladorNoticias {
 
     public static void main(String[] args) {
         try {
-            // Obtener el Documento HTML de la página web
-            Document document = (Document) Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").get();
-
-            // Buscar el div principal de la noticia
-            Element divNoticia = document.selectFirst("div.ue-c-cover-content__main");
-
-            // Obtener el título de la noticia (contenido del h2)
-            Element h2Titulo = divNoticia.selectFirst("h2");
-            String tituloNoticia = h2Titulo.text();
-            System.out.println("Título de la noticia: " + tituloNoticia);
+            Document documento = Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").timeout(6000).get();
+            Element body = documento.selectFirst(".ue-c-cover-content__main");
+            Element titulo = body.selectFirst("h2");
+            System.out.println(titulo.text());
         } catch (Exception e) {
             e.printStackTrace();
         }
