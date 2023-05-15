@@ -90,7 +90,6 @@ public class ControladorMarcadores {
         if (equipo3.getText().equals("SEVILLA")){
             Image imagen6 = new Image(getClass().getResourceAsStream("/com/example/pantallalog/OSASUNA.JPG"));
             imagen3.setImage(imagen6);
-            System.out.println(imagen6.toString());
         }
     }
 

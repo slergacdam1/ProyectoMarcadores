@@ -32,26 +32,26 @@
             <Insets left="155.0" />
          </GridPane.margin>
       </ImageView>
-      <Label maxHeight="1.7976931348623157E308" onMouseClicked="#onLeerNoticia" prefHeight="80.0" prefWidth="132.0" text="NOTICIA1" GridPane.rowIndex="1" />
+      <Label fx:id="noticia1" maxHeight="1.7976931348623157E308" onMouseClicked="#onLeerNoticia" prefHeight="80.0" prefWidth="132.0" text="NOTICIA1" GridPane.rowIndex="1" />
       <ImageView fitHeight="80.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="150.0" />
          </GridPane.margin>
       </ImageView>
-      <Label maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="150.0" text="NOTICIA2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label fx:id="noticia2" maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="150.0" text="NOTICIA2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <ImageView fitHeight="80.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="150.0" />
          </GridPane.margin>
       </ImageView>
-      <Label maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="150.0" text="NOTICIA2" GridPane.rowIndex="2" />
+      <Label fx:id="noticia3" maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="150.0" text="NOTICIA3" GridPane.rowIndex="2" />
       <ImageView fitHeight="80.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="150.0" />
          </GridPane.margin>
       </ImageView>
-      <Label maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="150.0" text="NOTICIA2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Label maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="150.0" text="NOTICIA2" GridPane.rowIndex="3" />
+      <Label fx:id="noticia4" maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="150.0" text="NOTICIA4" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label fx:id="noticia5" maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="150.0" text="NOTICIA5" GridPane.rowIndex="3" />
       <ImageView fitHeight="80.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="150.0" />
@@ -62,7 +62,7 @@
             <Insets left="150.0" />
          </GridPane.margin>
       </ImageView>
-      <Label maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="150.0" text="NOTICIA2" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label fx:id="noticia6" maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="150.0" text="NOTICIA6" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <Button fx:id="botonMarcadores" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#scenaMarcadores" text="MARCADORES" GridPane.rowIndex="4" />
       <Button fx:id="botonNoticias" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#scenaNoticias" text="NOTICIAS" GridPane.columnIndex="1" GridPane.rowIndex="4" />
    </children>
