@@ -13,8 +13,6 @@ import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.jsoup.select.Elements;
-import org.jsoup.select.Elements;
-
 
 
 import java.io.IOException;
@@ -114,10 +112,10 @@ public class controladorNoticias {
             Document document = (Document) Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").get();
 
             // Buscar el div principal de la noticia
-            Element divNoticia = document.getElementById("div.ue-c-cover-content__main");
+            Element divNoticia = document.selectFirst("div.ue-c-cover-content__main");
 
             // Obtener el título de la noticia (contenido del h2)
-            Element h2Titulo = divNoticia.sele("h2");
+            Element h2Titulo = divNoticia.selectFirst("h2");
             String tituloNoticia = h2Titulo.text();
             System.out.println("Título de la noticia: " + tituloNoticia);
         } catch (Exception e) {

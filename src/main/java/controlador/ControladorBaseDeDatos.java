@@ -64,23 +64,12 @@ public class ControladorBaseDeDatos {
     }
 
     public static void main(String[] args) {
-        try {
-            // Obtener el Documento HTML de la página web
-            Document document = Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").get();
+      crearConexion();
+      insertarNoticia();
+      cerrarConexion();
 
-            // Buscar el div principal de la noticia
-            Element divNoticia = document.selectFirst("div.ue-c-cover-content__main");
-
-            // Obtener el título de la noticia (contenido del h2)
-            Element h2Titulo = divNoticia.selectFirst("h2");
-            String tituloNoticia = h2Titulo.text();
-            System.out.println("Título de la noticia: " + tituloNoticia);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-            // Imprimir el título de la noticia
 
     }
 
 }
-}
+
