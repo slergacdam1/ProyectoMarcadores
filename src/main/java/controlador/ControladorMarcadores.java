@@ -1,4 +1,4 @@
-package com.example.pantallalog;
+package controlador;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -133,6 +133,8 @@ public class ControladorMarcadores {
             stage.setTitle("- Ejemplo sencillo de aplicación JavaFX -");
             stage.setScene(scene);
             stage.show();
+            controladorNoticias controlador = loader.getController();
+            controlador.actualizarNoticia();
 
         } catch (IOException e) {
             throw new RuntimeException(e);

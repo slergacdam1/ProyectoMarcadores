@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pantallalog.loginController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.loginController">
    <children>
       <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="112.0" prefWidth="600.0" text="Usuario" VBox.vgrow="ALWAYS">
          <font>
@@ -37,6 +36,14 @@
             <Insets left="250.0" right="250.0" />
          </VBox.margin>
       </PasswordField>
+      <Label fx:id="credenciales" alignment="CENTER" maxWidth="1.7976931348623157E308" style="-fx-opacity: 0;" text="Usuario/Contraseña incorrectos" textFill="#e10202" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets top="15.0" />
+         </VBox.margin>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
       <Button mnemonicParsing="false" onAction="#onClick" text="Iniciar Sesion" VBox.vgrow="ALWAYS">
          <VBox.margin>
             <Insets left="257.0" top="40.0" />
