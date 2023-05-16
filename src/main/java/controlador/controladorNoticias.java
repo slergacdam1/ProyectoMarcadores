@@ -137,84 +137,17 @@ public class controladorNoticias {
             stage.setScene(scene);
             stage.show();
 
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
     @FXML
-    void actualizarNoticia1(MouseEvent event) {
-        try {
-            Document documento = Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").timeout(6000).get();
-            Elements contenedor = documento.select(".ue-c-cover-content__main");
-            Elements noticias = contenedor.select(".ue-c-cover-content__headline");
-            int contador = 0;
-
-            for (int i = 0; i < noticias.size(); i++) {
-                if (contador <= 6) {
-                    Element noticia = noticias.get(i);
-                    String titulo = noticia.text();
-
-                    // Obtener la imagen de la noticia actual
-                    Element imagenElement = noticia.selectFirst("img");
-                    String urlImagen = "";
-                    if (imagenElement != null) {
-                        urlImagen = imagenElement.attr("abs:src");
-                    }
-
-                    // Asignar la noticia y la imagen al label correspondiente
-                    switch (contador) {
-                        case 1:
-                            noticia1.setText(titulo);
-                            // Asumiendo que tienes un ImageView llamado "imagen1" asociado a noticia1
-                            imagen1.setImage(new Image(urlImagen));
-                            break;
-                        case 2:
-                            noticia2.setText(titulo);
-                            // Asumiendo que tienes un ImageView llamado "imagen2" asociado a noticia2
-                            imagen2.setImage(new Image(urlImagen));
-                            break;
-                        case 3:
-                            noticia3.setText(titulo);
-                            // Asumiendo que tienes un ImageView llamado "imagen3" asociado a noticia3
-                            imagen3.setImage(new Image(urlImagen));
-                            break;
-                        case 4:
-                            noticia4.setText(titulo);
-                            // Asumiendo que tienes un ImageView llamado "imagen4" asociado a noticia4
-                            imagen4.setImage(new Image(urlImagen));
-                            break;
-                        case 5:
-                            noticia5.setText(titulo);
-                            // Asumiendo que tienes un ImageView llamado "imagen5" asociado a noticia5
-                            imagen5.setImage(new Image(urlImagen));
-                            break;
-                        case 6:
-                            noticia6.setText(titulo);
-                            // Asumiendo que tienes un ImageView llamado "imagen6" asociado a noticia6
-                            imagen6.setImage(new Image(urlImagen));
-                            break;
-                    }
-
-                    contador++;
-                } else {
-                    break; // Salir del bucle si ya se han asignado las 6 noticias
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-    @FXML
     void actualizarNoticia() {
         try {
-            Document documento = Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").timeout(6000).get();
+            Document documento = Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").timeout(1000).get();
             Elements contenedor = documento.select(".ue-c-cover-content__main");
             Elements titulos = contenedor.select("h2");
-            Elements imagenes = contenedor.select(".ue-c-cover-content__media");
 
             int contador = 0;
             for (Element titulo : titulos) {
