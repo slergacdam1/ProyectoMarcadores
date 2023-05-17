@@ -120,6 +120,7 @@ public class controladorNoticias {
             stage.show();
             controladorNoticias controlador = loader.getController();
             controlador.actualizarNoticia();
+            controlador.asignarId();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -127,6 +128,7 @@ public class controladorNoticias {
     }
     @FXML
     void onLeerNoticia(MouseEvent event) {
+
 
         Stage stage = (Stage) botonNoticias.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/articuloNoticia.fxml"));
@@ -136,6 +138,8 @@ public class controladorNoticias {
             stage.setTitle("- Ejemplo sencillo de aplicación JavaFX -");
             stage.setScene(scene);
             stage.show();
+            System.out.println(event.getSceneX());
+            System.out.println(event.getSceneY());
 
 
         } catch (IOException e) {
@@ -187,68 +191,15 @@ public class controladorNoticias {
             e.printStackTrace();
         }
     }
+    public void asignarId(){
+        noticia1.setId("label1");
+        noticia2.setId("label2");
+        noticia3.setId("label3");
+        noticia4.setId("label4");
+        noticia5.setId("label5");
+        noticia6.setId("label6");
+    }
 
-    /* ESTE ES EL EJEMPLO QUE HA ECHO JAVI*/
-
-    /*public void probar(){
-        try {
-            Document documento = Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").timeout(6000).get();
-            Elements contenedor = documento.select(".ue-c-cover-content__main");
-            Elements titulos = contenedor.select("h2");
-            Elements links = contenedor.select("a.ue-c-cover-content__link");
-            String link = links.get(0).attr("href");
-            System.out.println("SUPER LINK "+link);
-            Elements imagenes = contenedor.select(".ue-c-cover-content__media");
-
-            int contador = 0;
-            for (Element titulo : titulos) {
-                if (contador <= 6) {
-                    String noticia = titulo.text();
-
-
-                    // Asignar la noticia al label correspondiente
-                    switch (contador) {
-                        case 1:
-                            System.out.println(noticia);
-                            Elements bloqueEnlace = documento.select(".ue-c-article--first-letter-highlighted");
-                            Elements tipoEnlace = bloqueEnlace.select("a[href]");
-                            for (Element element : tipoEnlace) {
-                                System.out.println(tipoEnlace.attr("href"));
-                            }
-                            System.out.println(tipoEnlace);
-                            *//*Document documentoNoticia = Jsoup.connect(enlaceNoticia).timeout(6000).get();
-                            Element contenido = documentoNoticia.select(".ue-c-article--first-letter-highlighted").first();
-                            String textoContenido = contenido.text();
-                            // Haz algo con el contenido de la noticia, por ejemplo, mostrarlo en un cuadro de diálogo
-                            System.out.println(textoContenido);*//*
-                            break;
-                        case 2:
-                            System.out.println(noticia);
-                            break;
-                        case 3:
-                            System.out.println(noticia);
-                            break;
-                        case 4:
-                            System.out.println(noticia);
-                            break;
-                        case 5:
-                            System.out.println(noticia);
-                            break;
-                        case 6:
-                            System.out.println(noticia);
-                            break;
-                    }
-
-                    contador++;
-                } else {
-                    break; // Salir del bucle si ya se han asignado las 6 noticias
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
 
 }

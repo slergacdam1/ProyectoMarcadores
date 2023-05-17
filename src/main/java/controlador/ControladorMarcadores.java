@@ -135,6 +135,7 @@ public class ControladorMarcadores {
             stage.show();
             controladorNoticias controlador = loader.getController();
             controlador.actualizarNoticia();
+            controlador.asignarId();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
