@@ -52,7 +52,7 @@ public class controladorArticuloNoticias {
 
                     // Almacenar el enlace en la lista
                     listaEnlaces.add(enlaceNoticia);
-                    titulosEnlaces.add(String.valueOf(titulo));
+                    titulosEnlaces.add(titulo.text());
 
                     contador++;
                 } else {
@@ -172,6 +172,15 @@ public class controladorArticuloNoticias {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    @FXML
+    void mostrarTexto(MouseEvent event) {
+
+    }
+
+    @FXML
+    void mostrarTitulo(MouseEvent event) {
+
     }
 
 

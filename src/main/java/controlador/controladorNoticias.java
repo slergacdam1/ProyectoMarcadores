@@ -159,17 +159,6 @@ public class controladorNoticias {
                     switch (contador) {
                         case 1:
                             noticia1.setText(noticia);
-                           Elements bloqueEnlace = documento.select(".ue-c-article--first-letter-highlighted");
-                           Elements tipoEnlace = bloqueEnlace.select("a[href]");
-                            for (Element element : tipoEnlace) {
-                                System.out.println(tipoEnlace.attr("href"));
-                            }
-                            System.out.println(tipoEnlace);
-                            /*Document documentoNoticia = Jsoup.connect(enlaceNoticia).timeout(6000).get();
-                            Element contenido = documentoNoticia.select(".ue-c-article--first-letter-highlighted").first();
-                            String textoContenido = contenido.text();
-                            // Haz algo con el contenido de la noticia, por ejemplo, mostrarlo en un cuadro de diálogo
-                            System.out.println(textoContenido);*/
                             break;
                         case 2:
                             noticia2.setText(noticia);

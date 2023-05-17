@@ -9,10 +9,10 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.controladorArticuloNoticias">
    <top>
-      <Label fx:id="titulo" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="600.0" text="TITULO NOTICIA" BorderPane.alignment="CENTER" />
+      <Label fx:id="titulo" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#mostrarTitulo" prefHeight="35.0" prefWidth="600.0" text="TITULO NOTICIA" BorderPane.alignment="CENTER" />
    </top>
    <center>
-      <Label fx:id="texto" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" wrapText="true" BorderPane.alignment="CENTER" />
+      <Label fx:id="texto" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#mostrarTexto" text="Label" wrapText="true" BorderPane.alignment="CENTER" />
    </center>
    <right>
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
