@@ -36,6 +36,7 @@ public class loginController {
                 stage.setTitle("- Ejemplo sencillo de aplicación JavaFX -");
                 stage.setScene(scene);
                 stage.show();
+
                 controladorNoticias controlador = loader.getController();
                 controlador.actualizarNoticia();
                 controlador.asignarId();

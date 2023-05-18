@@ -128,7 +128,6 @@ public class controladorNoticias {
     @FXML
     void onLeerNoticia(MouseEvent event) {
 
-
         Stage stage = (Stage) botonNoticias.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/articuloNoticia.fxml"));
         // Crear una instancia de la nueva ventana
@@ -138,6 +137,8 @@ public class controladorNoticias {
             stage.setScene(scene);
             stage.setResizable(true);
             stage.show();
+            controladorArticuloNoticias controladorArticuloNoticias = loader.getController();
+            controladorArticuloNoticias.mostrarContenido();
             System.out.println(event.getSceneX());
             System.out.println(event.getSceneY());
 
