@@ -111,7 +111,7 @@ public class controladorArticuloNoticias {
             throw new RuntimeException(e);
         }
     }
-    private void obtenerTitulos(){
+    private void obtenerContenido(){
         try {
             Document documento = Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").get();
             Elements contenedor = documento.select(".ue-c-cover-content__main");
@@ -163,6 +163,6 @@ public class controladorArticuloNoticias {
 
 
     public void mostrarContenido() {
-        obtenerTitulos();
+        obtenerContenido();
     }
 }
