@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -137,6 +136,7 @@ public class controladorNoticias {
             Scene scene = new Scene(loader.load(), 600, 400);
             stage.setTitle("- Ejemplo sencillo de aplicación JavaFX -");
             stage.setScene(scene);
+            stage.setResizable(true);
             stage.show();
             System.out.println(event.getSceneX());
             System.out.println(event.getSceneY());
@@ -152,32 +152,44 @@ public class controladorNoticias {
             Document documento = Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").timeout(1000).get();
             Elements contenedor = documento.select(".ue-c-cover-content__main");
             Elements titulos = contenedor.select("h2");
+            Elements figureImagenes = documento.select(".ue-c-cover-content__image");
 
             int contador = 0;
             for (Element titulo : titulos) {
-                if (contador <= 6) {
+                if (contador < 6) {
                     String noticia = titulo.text();
-
-
-                    // Asignar la noticia al label correspondiente
+                    String link = figureImagenes.get(contador).select("img").attr("src");
+                    ImageView imageView = new ImageView(link);
                     switch (contador) {
-                        case 1:
+                        case 0:
                             noticia1.setText(noticia);
+                            //ImageView imageView0 = new ImageView(link);
+                            imagen1.setImage(imageView.getImage());
+                            break;
+                        case 1:
+                            noticia2.setText(noticia);
+                            //ImageView imageView1 = new ImageView(link);
+                            imagen2.setImage(imageView.getImage());
                             break;
                         case 2:
-                            noticia2.setText(noticia);
+                            noticia3.setText(noticia);
+                            //ImageView imageView2 = new ImageView(link);
+                            imagen3.setImage(imageView.getImage());
                             break;
                         case 3:
-                            noticia3.setText(noticia);
+                            noticia4.setText(noticia);
+                            //ImageView imageView3 = new ImageView(link);
+                            imagen4.setImage(imageView.getImage());
                             break;
                         case 4:
-                            noticia4.setText(noticia);
+                            noticia5.setText(noticia);
+                            //ImageView imageView4 = new ImageView(link);
+                            imagen5.setImage(imageView.getImage());
                             break;
                         case 5:
-                            noticia5.setText(noticia);
-                            break;
-                        case 6:
                             noticia6.setText(noticia);
+                            ImageView imageView6 = new ImageView(link);
+                            imagen6.setImage(imageView.getImage());
                             break;
                     }
 
@@ -186,7 +198,6 @@ public class controladorNoticias {
                     break; // Salir del bucle si ya se han asignado las 6 noticias
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -200,6 +211,23 @@ public class controladorNoticias {
         noticia6.setId("label6");
     }
 
+    public static void main(String[] args) {
+        try {
+            Document documento = Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").timeout(1000).get();
+            Elements contenedor = documento.select(".ue-c-cover-content__main");
+            Elements titulos = contenedor.select("h2");
+            Elements figureImagenes = documento.select(".ue-c-cover-content__image");
+            for (Element figureImagene : figureImagenes) {
+                String link = figureImagene.attr("src");
+                System.out.println(link.toString());
+            }
+/*
+            String imagen = figureImagenes.attr("src");
+            System.out.println(imagen);*/
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }
