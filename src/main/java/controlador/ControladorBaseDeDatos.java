@@ -62,38 +62,22 @@ public class ControladorBaseDeDatos {
             int contador = 0;
             ArrayList<String> titulosEnlaces = new ArrayList<>();
             ArrayList<String> textoEnlace = new ArrayList<>();
-            ArrayList<ImageView> imagenesNoticias = new ArrayList<>();
+            ArrayList<String> linksImagenes = new ArrayList<>();
 
             for (int i = 0; i < titulos.size(); i++) {
-                if (contador < 1) {
-                    String link = figureImagenes.get(i).select("img").attr("src");
-                    ImageView imageView = new ImageView(link);
-                    Element titulo =  titulos.get(i);
-                    Element enlace = enlaces.get(i);
-                    String noticia =  titulo.text();
-                    String enlaceNoticia =  enlace.attr("href");
-                    Document textoNoticia = Jsoup.connect(enlaceNoticia).get();
-                    Elements contenido = textoNoticia.select("p");
-                    textoEnlace.add(contenido.text());
-                    titulosEnlaces.add(noticia);
-                    imagenesNoticias.add(imageView);
-                    contador++;
-
-                } else {
-                    break; // Salir del bucle si ya se han obtenido los 6 enlaces
-                }
+                String link = figureImagenes.get(i).select("img").attr("src");
+                Element titulo = titulos.get(i);
+                Element enlace = enlaces.get(i);
+                String noticia = titulo.text();
+                String enlaceNoticia = enlace.attr("href");
+                Document textoNoticia = Jsoup.connect(enlaceNoticia).get();
+                Elements contenido = textoNoticia.select("p");
+                System.out.println(contenido.text());
+                textoEnlace.add(contenido.text());
+                titulosEnlaces.add(noticia);
+                linksImagenes.add(link);
+                contador++;
             }
-
-            for (String s : textoEnlace) {
-                System.out.println(s);
-            }
-            for (String titulosEnlace : titulosEnlaces) {
-                System.out.println(titulosEnlace);
-            }
-
-            /*titulo.setText(String.join("\n", titulosEnlaces));
-            texto.setText(String.join("\n", textoEnlace));
-            imagenNoticia.setImage(imagenesNoticias.get(0).getImage());*/
 
 
 
@@ -104,9 +88,7 @@ public class ControladorBaseDeDatos {
 
                 String titulo = titulosEnlaces.get(i);
                 String contenido = textoEnlace.get(i);
-                String imagen = imagenesNoticias.get(i).getImage().getUrl();
-                ImageView imageView = new ImageView();
-                imageView.setImage(new Image(imagen));
+                String imagen = linksImagenes.get(i);
                 sentencia.setString(1, titulo);
                 sentencia.setString(2, contenido);
                 sentencia.setString(3, imagen);
@@ -140,9 +122,9 @@ public class ControladorBaseDeDatos {
             Statement statement = conexion.createStatement();
             String sql = "CREATE TABLE noticia (" +
                     "id INT PRIMARY KEY AUTO_INCREMENT," +
-                    "titulo VARCHAR(100)," +
+                    "titulo TEXT," +
                     "contenido TEXT," +
-                    "imagen VARCHAR(500) NOT NULL" +
+                    "imagen TEXT NOT NULL" +
                     ")";
 
             // Ejecutar la sentencia SQL para crear la tabla
@@ -166,6 +148,7 @@ public class ControladorBaseDeDatos {
 
     public static void main(String[] args) {
       crearConexion();
+      crearTabla();
       insertarNoticia();
       cerrarConexion();
 
