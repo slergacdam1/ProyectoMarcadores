@@ -1,8 +1,6 @@
 package controlador;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import modelo.Noticia;
+import modelo.Partido;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,14 +9,14 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ControladorBaseDeDatos {
     public static final String url = "jdbc:mysql://localhost:3306/marcadores?useSSL=false";
     public static final String usuario = "root";
     public static final String contraseña = "root";
 
-    public static ArrayList<String> Titulos = new ArrayList<>();
-    public static ArrayList<String> Imagenes = new ArrayList<>();
+    private static List<Partido> partidos;
 
 
 
@@ -110,8 +108,7 @@ public class ControladorBaseDeDatos {
             Statement statement = conexion.createStatement();
             String sql = "CREATE TABLE partido (" +
                     "id INT PRIMARY KEY AUTO_INCREMENT," +
-                    "fecha DATE," +
-                    "hora TIME," +
+                    "jornada INT NOT NULL,"+
                     "equipo_local TEXT NOT NULL," +
                     "equipo_visitante TEXT NOT NULL, "+
                     "resultado TEXT NOT NULL "+
@@ -235,6 +232,100 @@ public class ControladorBaseDeDatos {
             throw new RuntimeException(e);
         }
     }
+    public static void insertarPartido(){
+        try {
+            Document documento = Jsoup.connect("https://www.marca.com/futbol/primera-division/calendario.html").get();
+
+            Elements contenedor = documento.select("div.jornada.calendarioInternacional");
+
+            int numeroJornada = 1; // Inicializamos el número de la jornada
+
+            Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
+
+            for (Element jornadaDiv : contenedor) {
+                Element jornadaElement = jornadaDiv.selectFirst("div.cal-agendas.calendario");
+                if (jornadaElement != null) {
+                    // Agregamos el número de la jornada a la tabla
+                    String jornada = "Jornada: " + numeroJornada;
+
+                    Elements filas = jornadaElement.select("tr");
+
+                    for (Element fila : filas) {
+                        Element local = fila.selectFirst("td.local span");
+                        Element visitante = fila.selectFirst("td.visitante span");
+                        Element resultado = fila.selectFirst("td.resultado span");
+
+                        if (local != null && visitante != null && resultado != null) {
+                            String nombreLocal = local.text();
+                            String nombreVisitante = visitante.text();
+                            String resultadoPartido = resultado.text();
+                            Partido partido = new Partido();
+                            partido.setEquipoLocal(nombreLocal);
+                            partido.setEquipoVisitante(nombreVisitante);
+                            partido.setResultado(resultadoPartido);
+
+
+                            // Realizar la inserción en la tabla partido
+                            String sql = "INSERT INTO partido (jornada, equipo_local, equipo_visitante, resultado) VALUES (?, ?, ?, ?)";
+                            PreparedStatement statement = conexion.prepareStatement(sql);
+                            statement.setInt(1, numeroJornada);
+                            statement.setString(2, nombreLocal);
+                            statement.setString(3, nombreVisitante);
+                            statement.setString(4, resultadoPartido);
+                            statement.executeUpdate();
+                        }
+                    }
+
+                    numeroJornada++; // Incrementamos el número de la jornada
+                }
+            }
+            System.out.println("Partidos añadidos correctamente");
+            // Cerrar la conexión con la base de datos
+            conexion.close();
+        } catch (IOException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static List<Partido> consultarPartido(){
+        partidos = new ArrayList<>();
+        try {
+
+            Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
+
+            // Realizar la consulta a la tabla partido
+            String sql = "SELECT * FROM partido";
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            ResultSet resultado = statement.executeQuery();
+
+            // Recorrer el resultado de la consulta y mostrar los valores
+            while (resultado.next()) {
+                int id = resultado.getInt("id");
+                int jornada = resultado.getInt("jornada");
+                String equipoLocal = resultado.getString("equipo_local");
+                String equipoVisitante = resultado.getString("equipo_visitante");
+                String resultadoPartido = resultado.getString("resultado");
+
+                // Crear un objeto Partido y añadirlo a la lista
+                Partido partido = new Partido(jornada, equipoLocal, equipoVisitante, resultadoPartido);
+                partidos.add(partido);
+
+                System.out.println("ID: " + id);
+                System.out.println("Jornada: " + jornada);
+                System.out.println("Equipo Local: " + equipoLocal);
+                System.out.println("Equipo Visitante: " + equipoVisitante);
+                System.out.println("Resultado: " + resultadoPartido);
+                System.out.println("-----------------------");
+            }
+
+            // Cerrar la conexión con la base de datos
+            resultado.close();
+            statement.close();
+            conexion.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return partidos;
+    }
     public static void consultarNoticias() {
         try {
             // Cargamos el driver de MySQL
@@ -328,7 +419,8 @@ public class ControladorBaseDeDatos {
         crearTablaPartido();
         crearTablaNoticia();
         insertarNoticia();
-        consultarNoticias();
+        insertarPartido();
+     consultarPartido();
         cerrarConexion();
 
 

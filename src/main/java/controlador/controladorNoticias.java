@@ -16,8 +16,6 @@ import org.jsoup.select.Elements;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class controladorNoticias {
 
@@ -77,6 +75,7 @@ public class controladorNoticias {
 
             ControladorMarcadores controller = loader.getController();
             controller.initialize();
+            controller.actualizarPartido();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -130,54 +129,55 @@ public class controladorNoticias {
 
     @FXML
     void actualizarNoticia() {
-        /*ControladorBaseDeDatos baseDeDatos = new ControladorBaseDeDatos();*/
+        try {
+            Document documento = Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").get();
+            Elements contenedor = documento.select(".ue-c-cover-content__main");
+            Elements titulos = contenedor.select("h2");
+            Elements figureImagenes = documento.select(".ue-c-cover-content__image");
 
-        try {// Realizamos la consulta a la base de datos para obtener los títulos e imágenes
-/*
-            ControladorBaseDeDatos.consultarTitulosImagenes();
-*/
-
-            // Obtener los resultados de la consulta
-            ArrayList<String> titulos = ControladorBaseDeDatos.Titulos;
-            ArrayList<String> imagenes = ControladorBaseDeDatos.Imagenes;
-
-            // Verificamos que los ArrayList tengan la misma longitud
-            if (titulos.size() == imagenes.size()) {
-                // Actualizar los labels e ImageView con los datos obtenidos
-                for (int i = 0; i < titulos.size(); i++) {
-                    String noticia = titulos.get(i);
-                    String link = imagenes.get(i);
+            int contador = 0;
+            for (Element titulo : titulos) {
+                if (contador < 6) {
+                    String noticia = titulo.text();
+                    String link = figureImagenes.get(contador).select("img").attr("src");
                     ImageView imageView = new ImageView(link);
-
-                    switch (i) {
+                    switch (contador) {
                         case 0:
                             noticia1.setText(noticia);
+                            //ImageView imageView0 = new ImageView(link);
                             imagen1.setImage(imageView.getImage());
                             break;
                         case 1:
                             noticia2.setText(noticia);
+                            //ImageView imageView1 = new ImageView(link);
                             imagen2.setImage(imageView.getImage());
                             break;
                         case 2:
                             noticia3.setText(noticia);
+                            //ImageView imageView2 = new ImageView(link);
                             imagen3.setImage(imageView.getImage());
                             break;
                         case 3:
                             noticia4.setText(noticia);
+                            //ImageView imageView3 = new ImageView(link);
                             imagen4.setImage(imageView.getImage());
                             break;
                         case 4:
                             noticia5.setText(noticia);
+                            //ImageView imageView4 = new ImageView(link);
                             imagen5.setImage(imageView.getImage());
                             break;
                         case 5:
                             noticia6.setText(noticia);
+                            ImageView imageView6 = new ImageView(link);
                             imagen6.setImage(imageView.getImage());
                             break;
                     }
+
+                    contador++;
+                } else {
+                    break; // Salir del bucle si ya se han asignado las 6 noticias
                 }
-            } else {
-                System.out.println("Los ArrayList de títulos e imágenes no tienen la misma longitud");
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -87,6 +87,9 @@ public class controladorArticuloNoticias {
             stage.setTitle("- Ejemplo sencillo de aplicación JavaFX -");
             stage.setScene(scene);
             stage.show();
+            ControladorMarcadores controladorMarcadores = loader.getController();
+            controladorMarcadores.initialize();
+            controladorMarcadores.actualizarPartido();
 
         } catch (IOException e) {
             throw new RuntimeException(e);

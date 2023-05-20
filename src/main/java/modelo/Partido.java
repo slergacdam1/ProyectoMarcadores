@@ -3,17 +3,17 @@ package modelo;
 import java.util.Date;
 
 public class Partido {
-    Date fecha;
+    int jornada;
     String equipoLocal;
     String equipoVisitante;
-    String hora;
+    String resultado;
 
-    public Date getFecha() {
-        return fecha;
+    public int getJornada() {
+        return jornada;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setJornada(int jornada) {
+        this.jornada = jornada;
     }
 
     public String getEquipoLocal() {
@@ -32,18 +32,21 @@ public class Partido {
         this.equipoVisitante = equipoVisitante;
     }
 
-    public String getHora() {
-        return hora;
+    public String getResultado() {
+        return resultado;
     }
 
-    public void setHora(String hora) {
-        this.hora = hora;
+    public void setResultado(String resultado) {
+        this.resultado = resultado;
     }
 
-    public Partido(Date fecha, String equipoLocal, String equipoVisitante, String hora) {
-        this.fecha = fecha;
+    public Partido(int jornada, String equipoLocal, String equipoVisitante, String resultado) {
+        this.jornada = jornada;
         this.equipoLocal = equipoLocal;
         this.equipoVisitante = equipoVisitante;
-        this.hora = hora;
+        this.resultado = resultado;
+    }
+
+    public Partido() {
     }
 }
