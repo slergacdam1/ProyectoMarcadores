@@ -37,6 +37,7 @@ public class loginController {
                 stage.setScene(scene);
                 stage.show();
 
+
                 controladorNoticias controlador = loader.getController();
                 controlador.actualizarNoticia();
                 controlador.asignarId();

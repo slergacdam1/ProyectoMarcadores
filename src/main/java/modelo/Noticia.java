@@ -3,6 +3,7 @@ package modelo;
 public class Noticia {
     String titulo;
     String texto;
+    String imagen;
 
     public String getTitulo() {
         return titulo;
@@ -20,8 +21,17 @@ public class Noticia {
         this.texto = texto;
     }
 
-    public Noticia(String titulo, String texto) {
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public Noticia(String titulo, String texto, String imagen) {
         this.titulo = titulo;
         this.texto = texto;
+        this.imagen = imagen;
     }
 }

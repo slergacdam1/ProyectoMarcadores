@@ -2,6 +2,7 @@ package controlador;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import modelo.Noticia;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,6 +16,9 @@ public class ControladorBaseDeDatos {
     public static final String url = "jdbc:mysql://localhost:3306/marcadores?useSSL=false";
     public static final String usuario = "root";
     public static final String contraseña = "root";
+
+    public static ArrayList<String> Titulos = new ArrayList<>();
+    public static ArrayList<String> Imagenes = new ArrayList<>();
 
 
 
@@ -195,12 +199,9 @@ public class ControladorBaseDeDatos {
             for (Element cont : contenedor) {
                 String noticia = cont.select("h2").text();
                 String linkImagen = cont.select(".ue-c-cover-content__image").select("img").attr("src");
-                System.out.println(linkImagen);
                 String enlaceNoticia = cont.select("a").attr("href");
                 Document textoNoticia = Jsoup.connect(enlaceNoticia).get();
                 String contenidoNoticia = textoNoticia.select("p").text();
-                System.out.println(contenidoNoticia);
-
                 titulosEnlaces.add(noticia);
                 textoEnlace.add(contenidoNoticia);
                 linksImagenes.add(linkImagen);
@@ -234,6 +235,84 @@ public class ControladorBaseDeDatos {
             throw new RuntimeException(e);
         }
     }
+    public static void consultarNoticias() {
+        try {
+            // Cargamos el driver de MySQL
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // Establecemos la conexión con la base de datos
+            conexion = DriverManager.getConnection(url, usuario, contraseña);
+
+            // Creamos la consulta SQL para obtener los datos de la tabla
+            String consulta = "SELECT titulo, contenido, imagen FROM noticia";
+
+            // Creamos una sentencia SQL preparada para la consulta
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+
+            // Ejecutamos la consulta y obtenemos el resultado
+            ResultSet resultado = sentencia.executeQuery();
+
+            // Recorremos el resultado y mostramos los datos
+            while (resultado.next()) {
+                String titulo = resultado.getString("titulo");
+                String contenido = resultado.getString("contenido");
+                String imagen = resultado.getString("imagen");
+
+                System.out.println("Título: " + titulo);
+                System.out.println("Contenido: " + contenido);
+                System.out.println("Imagen: " + imagen);
+                System.out.println("-----------------------");
+            }
+
+            // Cerramos la conexión, la sentencia y el resultado
+            resultado.close();
+            sentencia.close();
+            conexion.close();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void consultarTitulosImagenes() {
+        ArrayList<String> Titulos = new ArrayList<>();
+        ArrayList<String> Imagenes = new ArrayList<>();
+        try {
+            // Cargamos el driver de MySQL
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // Establecemos la conexión con la base de datos
+            conexion = DriverManager.getConnection(url, usuario, contraseña);
+
+            // Creamos la consulta SQL para obtener los datos de la tabla
+            String consulta = "SELECT titulo, imagen FROM noticia";
+
+            // Creamos una sentencia SQL preparada para la consulta
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+
+            // Ejecutamos la consulta y obtenemos el resultado
+            ResultSet resultado = sentencia.executeQuery();
+
+            // Recorremos el resultado y mostramos los datos
+            while (resultado.next()) {
+                String titulo = resultado.getString("titulo");
+                String imagen = resultado.getString("imagen");
+
+                System.out.println("Título: " + titulo);
+                System.out.println("Imagen: " + imagen);
+                System.out.println("-----------------------");
+                Titulos.add(titulo);
+                Imagenes.add(imagen);
+            }
+
+            // Cerramos la conexión, la sentencia y el resultado
+            resultado.close();
+            sentencia.close();
+            conexion.close();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
@@ -249,6 +328,7 @@ public class ControladorBaseDeDatos {
         crearTablaPartido();
         crearTablaNoticia();
         insertarNoticia();
+        consultarNoticias();
         cerrarConexion();
 
 

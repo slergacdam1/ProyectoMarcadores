@@ -40,7 +40,7 @@
                   <Image url="@../escudos/OSASUNA.jpg" />
                </image>
             </ImageView>
-            <Label fx:id="equipo1" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;" text="OSASUNA" HBox.hgrow="ALWAYS" />
+            <Label fx:id="equipo1" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseMoved="#actualizarPartido" style="-fx-background-color: white;" text="OSASUNA" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
       <Label fx:id="resultado1" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;" text="3-0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -48,7 +48,7 @@
             <Font size="31.0" />
          </font>
       </Label>
-      <Label fx:id="equipo2" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="BARCELONA" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Label fx:id="equipo2" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseMoved="#actualizarPartido" text="BARCELONA" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
          <children>
             <ImageView fx:id="imagen3" fitHeight="74.0" fitWidth="64.0" onMouseMoved="#onSetImagen" pickOnBounds="true" preserveRatio="true">
@@ -56,18 +56,18 @@
                   <Image url="@../escudos/barca.png" />
                </image>
             </ImageView>
-            <Label fx:id="equipo3" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="SEVILLA" HBox.hgrow="ALWAYS" />
+            <Label fx:id="equipo3" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseMoved="#actualizarPartido" text="SEVILLA" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
       <Label fx:id="resultado2" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="2-0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Label fx:id="equipo4" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Betis" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <Label fx:id="equipo4" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseMoved="#actualizarPartido" text="Betis" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Label fx:id="noticia" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" GridPane.columnSpan="3" GridPane.rowIndex="4" />
+      <Label fx:id="noticia" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseMoved="#actualizarPartido" text="Label" GridPane.columnSpan="3" GridPane.rowIndex="4" />
       <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Label text="Label" GridPane.rowIndex="3" />
+      <Label onMouseMoved="#actualizarPartido" text="Label" GridPane.rowIndex="3" />
       <Button fx:id="botonMarcadors" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#scenaMarcadores" text="MARCADORES" GridPane.columnSpan="3" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets right="300.0" />
