@@ -1,6 +1,6 @@
 package modelo;
 
-public class noticia {
+public class Noticia {
     String titulo;
     String texto;
 
@@ -20,7 +20,7 @@ public class noticia {
         this.texto = texto;
     }
 
-    public noticia(String titulo, String texto) {
+    public Noticia(String titulo, String texto) {
         this.titulo = titulo;
         this.texto = texto;
     }

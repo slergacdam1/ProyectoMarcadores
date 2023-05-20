@@ -88,7 +88,7 @@ public class ControladorMarcadores {
     @FXML
     void onSetImagen(MouseEvent event) {
         if (equipo3.getText().equals("SEVILLA")){
-            Image imagen6 = new Image(getClass().getResourceAsStream("/com/example/pantallalog/OSASUNA.JPG"));
+            Image imagen6 = new Image(getClass().getResourceAsStream("/escudos/OSASUNA.JPG"));
             imagen3.setImage(imagen6);
         }
     }
@@ -99,7 +99,7 @@ public class ControladorMarcadores {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/marcadores.fxml"));
         // Crear una instancia de la nueva ventana
         try {
-            Scene scene = new Scene(loader.load(), 600, 400);
+            Scene scene = new Scene(loader.load(), 600, 600);
             stage.setTitle("- Ejemplo sencillo de aplicación JavaFX -");
             stage.setScene(scene);
             stage.show();
@@ -129,7 +129,7 @@ public class ControladorMarcadores {
         FXMLLoader loader = new FXMLLoader( getClass().getResource("/vista/noticias.fxml"));
         // Crear una instancia de la nueva ventana
         try {
-            Scene scene = new Scene(loader.load(), 600, 400);
+            Scene scene = new Scene(loader.load(), 600, 600);
             stage.setTitle("- Ejemplo sencillo de aplicación JavaFX -");
             stage.setScene(scene);
             stage.show();

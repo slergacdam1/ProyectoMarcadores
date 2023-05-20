@@ -60,29 +60,6 @@ public class controladorNoticias {
     @FXML
     private ImageView imagen6;
 
-  /*  @FXML
-    void scenaMarcadores(ActionEvent event) {
-        Stage stage = (Stage) botonMarcadores.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/marcadores.fxml"));
-        // Crear una instancia de la nueva ventana
-        try {
-            Scene scene = new Scene(loader.load(), 600, 400);
-            stage.setTitle("- Ejemplo sencillo de aplicación JavaFX -");
-            stage.setScene(scene);
-            stage.show();
-            stage.setOnShown(windowEvent ->{
-                Label fechaLabel = (Label) scene.lookup("#fecha");
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate fechaActual = LocalDate.now();
-                String fechaFormateada = fechaActual.format(formatter);
-                fechaLabel.setText(fechaFormateada);
-            } );
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-*/
 
 
     @FXML
@@ -91,7 +68,7 @@ public class controladorNoticias {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/marcadores.fxml"));
 
         try {
-            Scene scene = new Scene(loader.load(), 600, 400);
+            Scene scene = new Scene(loader.load(), 600, 600);
             stage.setTitle("- Ejemplo sencillo de aplicación JavaFX -");
             stage.setScene(scene);
             stage.show();
@@ -113,7 +90,7 @@ public class controladorNoticias {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/noticias.fxml"));
         // Crear una instancia de la nueva ventana
         try {
-            Scene scene = new Scene(loader.load(), 600, 400);
+            Scene scene = new Scene(loader.load(), 600, 600);
             stage.setTitle("- Ejemplo sencillo de aplicación JavaFX -");
             stage.setScene(scene);
             stage.show();
@@ -132,7 +109,7 @@ public class controladorNoticias {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/articuloNoticia.fxml"));
         // Crear una instancia de la nueva ventana
         try {
-            Scene scene = new Scene(loader.load(), 600, 400);
+            Scene scene = new Scene(loader.load(), 600, 600);
             stage.setTitle("- Ejemplo sencillo de aplicación JavaFX -");
             stage.setScene(scene);
             stage.setResizable(true);
@@ -147,10 +124,12 @@ public class controladorNoticias {
             throw new RuntimeException(e);
         }
     }
+
+
     @FXML
     void actualizarNoticia() {
         try {
-            Document documento = Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").timeout(1000).get();
+            Document documento = Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").get();
             Elements contenedor = documento.select(".ue-c-cover-content__main");
             Elements titulos = contenedor.select("h2");
             Elements figureImagenes = documento.select(".ue-c-cover-content__image");

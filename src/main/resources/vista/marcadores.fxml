@@ -37,7 +37,7 @@
          <children>
             <ImageView fx:id="imagen" fitHeight="70.0" fitWidth="89.0" onMouseMoved="#onSetImagen" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                <image>
-                  <Image url="@../com/example/pantallalog/OSASUNA.jpg" />
+                  <Image url="@../escudos/OSASUNA.jpg" />
                </image>
             </ImageView>
             <Label fx:id="equipo1" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: white;" text="OSASUNA" HBox.hgrow="ALWAYS" />
@@ -53,7 +53,7 @@
          <children>
             <ImageView fx:id="imagen3" fitHeight="74.0" fitWidth="64.0" onMouseMoved="#onSetImagen" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../com/example/pantallalog/barca.png" />
+                  <Image url="@../escudos/barca.png" />
                </image>
             </ImageView>
             <Label fx:id="equipo3" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="SEVILLA" HBox.hgrow="ALWAYS" />

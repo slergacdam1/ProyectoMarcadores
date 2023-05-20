@@ -42,7 +42,7 @@
             <Insets left="150.0" />
          </GridPane.margin>
       </ImageView>
-      <Label fx:id="noticia2" maxHeight="1.7976931348623157E308" onMouseClicked="#onLeerNoticia" onMouseMoved="#actualizarNoticia" prefHeight="80.0" prefWidth="150.0" style="-fx-font-weight: bold;" text="NOTICIA2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Label fx:id="noticia2" maxHeight="1.7976931348623157E308" onMouseClicked="#onLeerNoticia" onMouseMoved="#actualizarNoticia" prefHeight="80.0" prefWidth="150.0" text="NOTICIA2" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Label>

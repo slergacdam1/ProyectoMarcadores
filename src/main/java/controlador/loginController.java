@@ -23,7 +23,7 @@ public class loginController {
 
     @FXML
     void onClick(ActionEvent event) {
-        if (usuario.getText() == "" || contraseña.getText() == ""){
+        if (usuario.getText().equals("") || contraseña.getText().equals("")){
             credenciales.setOpacity(1.0);
         }
         else {
@@ -32,7 +32,7 @@ public class loginController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/noticias.fxml"));
             // Crear una instancia de la nueva ventana
             try {
-                Scene scene = new Scene(loader.load(), 600, 400);
+                Scene scene = new Scene(loader.load(), 600, 600);
                 stage.setTitle("- Ejemplo sencillo de aplicación JavaFX -");
                 stage.setScene(scene);
                 stage.show();

@@ -2,7 +2,7 @@ package modelo;
 
 import java.util.Date;
 
-public class partido {
+public class Partido {
     Date fecha;
     String equipoLocal;
     String equipoVisitante;
@@ -40,7 +40,7 @@ public class partido {
         this.hora = hora;
     }
 
-    public partido(Date fecha, String equipoLocal, String equipoVisitante, String hora) {
+    public Partido(Date fecha, String equipoLocal, String equipoVisitante, String hora) {
         this.fecha = fecha;
         this.equipoLocal = equipoLocal;
         this.equipoVisitante = equipoVisitante;
