@@ -3,12 +3,14 @@ package controlador;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import modelo.Noticia;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,6 +18,7 @@ import org.jsoup.select.Elements;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class controladorNoticias {
 
@@ -59,6 +62,8 @@ public class controladorNoticias {
 
     @FXML
     private ImageView imagen6;
+    private ArrayList<Noticia> noticias;
+
 
 
 
@@ -67,13 +72,14 @@ public class controladorNoticias {
         Stage stage = (Stage) botonMarcadores.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/marcadores.fxml"));
 
+
         try {
             Scene scene = new Scene(loader.load(), 600, 600);
-            stage.setTitle("- Ejemplo sencillo de aplicación JavaFX -");
+            stage.setTitle("Marcadores");
             stage.setScene(scene);
             stage.show();
 
-            ControladorMarcadores controller = loader.getController();
+            controladorMarcadores controller = loader.getController();
             controller.initialize();
             controller.actualizarPartido();
 
@@ -92,12 +98,11 @@ public class controladorNoticias {
         // Crear una instancia de la nueva ventana
         try {
             Scene scene = new Scene(loader.load(), 600, 600);
-            stage.setTitle("- Ejemplo sencillo de aplicación JavaFX -");
+            stage.setTitle("Noticias");
             stage.setScene(scene);
             stage.show();
             controladorNoticias controlador = loader.getController();
             controlador.actualizarNoticia();
-            controlador.asignarId();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -117,8 +122,7 @@ public class controladorNoticias {
             stage.show();
             controladorArticuloNoticias controladorArticuloNoticias = loader.getController();
             controladorArticuloNoticias.mostrarContenido();
-            System.out.println(event.getSceneX());
-            System.out.println(event.getSceneY());
+
 
 
         } catch (IOException e) {
@@ -127,8 +131,10 @@ public class controladorNoticias {
     }
 
 
+
     @FXML
     void actualizarNoticia() {
+
         try {
             Document documento = Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").get();
             Elements contenedor = documento.select(".ue-c-cover-content__main");
@@ -144,32 +150,26 @@ public class controladorNoticias {
                     switch (contador) {
                         case 0:
                             noticia1.setText(noticia);
-                            //ImageView imageView0 = new ImageView(link);
                             imagen1.setImage(imageView.getImage());
                             break;
                         case 1:
                             noticia2.setText(noticia);
-                            //ImageView imageView1 = new ImageView(link);
                             imagen2.setImage(imageView.getImage());
                             break;
                         case 2:
                             noticia3.setText(noticia);
-                            //ImageView imageView2 = new ImageView(link);
                             imagen3.setImage(imageView.getImage());
                             break;
                         case 3:
                             noticia4.setText(noticia);
-                            //ImageView imageView3 = new ImageView(link);
                             imagen4.setImage(imageView.getImage());
                             break;
                         case 4:
                             noticia5.setText(noticia);
-                            //ImageView imageView4 = new ImageView(link);
                             imagen5.setImage(imageView.getImage());
                             break;
                         case 5:
                             noticia6.setText(noticia);
-                            ImageView imageView6 = new ImageView(link);
                             imagen6.setImage(imageView.getImage());
                             break;
                     }
@@ -183,32 +183,9 @@ public class controladorNoticias {
             e.printStackTrace();
         }
     }
-    public void asignarId(){
-        noticia1.setId("label1");
-        noticia2.setId("label2");
-        noticia3.setId("label3");
-        noticia4.setId("label4");
-        noticia5.setId("label5");
-        noticia6.setId("label6");
-    }
 
-    public static void main(String[] args) {
-        try {
-            Document documento = Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").timeout(1000).get();
-            Elements contenedor = documento.select(".ue-c-cover-content__main");
-            Elements titulos = contenedor.select("h2");
-            Elements figureImagenes = documento.select(".ue-c-cover-content__image");
-            for (Element figureImagene : figureImagenes) {
-                String link = figureImagene.attr("src");
-                System.out.println(link.toString());
-            }
-/*
-            String imagen = figureImagenes.attr("src");
-            System.out.println(imagen);*/
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
+
 
 
 }

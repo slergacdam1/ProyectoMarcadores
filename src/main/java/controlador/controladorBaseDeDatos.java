@@ -1,5 +1,6 @@
 package controlador;
 
+import modelo.Noticia;
 import modelo.Partido;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -9,52 +10,77 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
-public class ControladorBaseDeDatos {
-    public static final String url = "jdbc:mysql://localhost:3306/marcadores?useSSL=false";
+public class controladorBaseDeDatos {
+    public static final String url1 = "jdbc:mysql://localhost:3306/LaLigaNews?useSSL=false";
+    public static final String url = "jdbc:mysql://localhost:3306/";
     public static final String usuario = "root";
     public static final String contraseña = "root";
 
-    private static List<Partido> partidos;
-
+    static ArrayList<Partido> partidos;
+    static ArrayList<Noticia> noticias;
 
 
     public static Connection conexion;
 
+    public static void generarBaseDeDatosCompleta() {
+        crearConexion();
+        crearBaseDeDatos();
+        seleccionarBaseDeDatos();
+        crearTablaNoticia();
+        crearTablaPartido();
+        insertarNoticia();
+        insertarPartido();
+
+    }
+
 
     public static void crearConexion() {
-        // Configuramos la conexión con la base de datos
+        // Configuramos la conexión con el servidor de MySQL
         try {
             // Cargamos el driver de MySQL
             Class.forName("com.mysql.cj.jdbc.Driver");
-            // Establecemos la conexión con la base de datos
+            // Establecemos la conexión con el servidor de MySQL sin seleccionar una base de datos
             conexion = DriverManager.getConnection(url, usuario, contraseña);
-            System.out.println("Conexion abierta con exito");
+            System.out.println("Conexión abierta con éxito");
+
+
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public static void cerrarConexion(){
+    public static void cerrarConexion() {
         try {
             conexion.close();
             System.out.println("Se ha cerrado la conexion");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }public static void crearBaseDeDatos() {
+    }
+
+    public static void crearBaseDeDatos() {
+        Statement statement = null;
         try {
-            // Cargamos el driver de MySQL
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
-            String sql = "CREATE DATABASE marcadores";
-            Statement statement = conexion.createStatement();
+            String sql = "CREATE DATABASE IF NOT EXISTS LaLigaNews";
+            statement = conexion.createStatement();
             statement.executeUpdate(sql);
-            System.out.println("Base de datos creada correctamente.");
             statement.close();
-            conexion.close();
-        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Base de datos creada correctamente");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void seleccionarBaseDeDatos() {
+        Statement statement = null;
+        try {
+            String sql = "USE LaLigaNews";
+            statement = conexion.createStatement();
+            statement.executeUpdate(sql);
+            statement.close();
+            System.out.println("Base de datos seleccionada correctamente");
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -66,7 +92,7 @@ public class ControladorBaseDeDatos {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Establecer la conexión con la base de datos
-            conexion = DriverManager.getConnection(url, usuario, contraseña);
+            conexion = DriverManager.getConnection(url1, usuario, contraseña);
 
             // Crear una sentencia SQL para crear la tabla
             statement = conexion.createStatement();
@@ -90,104 +116,113 @@ public class ControladorBaseDeDatos {
             try {
                 statement.close();
                 conexion.close();
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public static void crearTablaPartido(){
+    public static void crearTablaPartido() {
+        Statement statement = null;
+
         try {
-            // Cargar el driver de MySQL
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establecer la conexión con la base de datos
-            Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
+            Connection conexion = DriverManager.getConnection(url1, usuario, contraseña);
 
-            // Crear una sentencia SQL para crear la tabla
-            Statement statement = conexion.createStatement();
+            statement = conexion.createStatement();
             String sql = "CREATE TABLE partido (" +
                     "id INT PRIMARY KEY AUTO_INCREMENT," +
-                    "jornada INT NOT NULL,"+
+                    "jornada INT NOT NULL," +
                     "equipo_local TEXT NOT NULL," +
-                    "equipo_visitante TEXT NOT NULL, "+
-                    "resultado TEXT NOT NULL "+
+                    "equipo_visitante TEXT NOT NULL, " +
+                    "resultado TEXT NOT NULL " +
                     ")";
 
-            // Ejecutar la sentencia SQL para crear la tabla
             statement.executeUpdate(sql);
 
             System.out.println("Tabla creada correctamente.");
 
-            // Cerrar la conexión
-            statement.close();
-            conexion.close();
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                statement.close();
+                conexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
-    public static void eliminarTablaNoticia(){
+
+    public static void eliminarTablaNoticia() {
+        Statement statement = null;
         try {
             // Cargamos el driver de MySQL
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establecemos la conexión con la base de datos
-            Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
+            Connection conexion = DriverManager.getConnection(url1, usuario, contraseña);
 
-            // Borramos la tabla "personas"
             String sql = "DROP TABLE noticia";
-            Statement sentencia = conexion.createStatement();
-            sentencia.execute(sql);
+            statement = conexion.createStatement();
+            statement.execute(sql);
             System.out.println("Tabla eliminada correctamente");
 
-            // Cerramos la conexión y la sentencia
-            sentencia.close();
-            conexion.close();
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                statement.close();
+                conexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
-    public static void eliminarTablaPartido(){
+
+    public static void eliminarTablaPartido() {
+        Statement statement = null;
         try {
-            // Cargamos el driver de MySQL
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            // Establecemos la conexión con la base de datos
-            Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
+            Connection conexion = DriverManager.getConnection(url1, usuario, contraseña);
 
-            // Borramos la tabla "personas"
             String sql = "DROP TABLE partido";
-            Statement sentencia = conexion.createStatement();
-            sentencia.execute(sql);
+            statement = conexion.createStatement();
+            statement.execute(sql);
             System.out.println("Tabla eliminada correctamente");
 
-            // Cerramos la conexión y la sentencia
-            sentencia.close();
-            conexion.close();
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                statement.close();
+                conexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public static void insertarNoticia() {
+        PreparedStatement sentencia = null;
         try {
-            // Cargamos el driver de MySQL
             Class.forName("com.mysql.cj.jdbc.Driver");
             // Establecemos la conexión con la base de datos
-            conexion = DriverManager.getConnection(url, usuario, contraseña);
+            conexion = DriverManager.getConnection(url1, usuario, contraseña);
 
             Document documento = Jsoup.connect("https://www.marca.com/futbol/primera-division.html?intcmp=MENUPROD&s_kw=primera-division").get();
 
             Elements contenedor = documento.select(".ue-c-cover-content__body");
-            Elements titulos = contenedor.select("h2");
-            Elements enlaces = contenedor.select("a");
-            Elements figureImagenes = contenedor.select(".ue-c-cover-content__image");
 
             ArrayList<String> titulosEnlaces = new ArrayList<>();
             ArrayList<String> textoEnlace = new ArrayList<>();
@@ -199,13 +234,15 @@ public class ControladorBaseDeDatos {
                 String enlaceNoticia = cont.select("a").attr("href");
                 Document textoNoticia = Jsoup.connect(enlaceNoticia).get();
                 String contenidoNoticia = textoNoticia.select("p").text();
-                titulosEnlaces.add(noticia);
-                textoEnlace.add(contenidoNoticia);
-                linksImagenes.add(linkImagen);
+
+                if (!existeNoticia(noticia)) {
+                    titulosEnlaces.add(noticia);
+                    textoEnlace.add(contenidoNoticia);
+                    linksImagenes.add(linkImagen);
+                }
             }
 
-            // Creamos una sentencia SQL preparada para realizar inserciones
-            PreparedStatement sentencia = conexion.prepareStatement("INSERT INTO noticia (titulo, contenido, imagen) VALUES (?, ?, ?)");
+             sentencia = conexion.prepareStatement("INSERT INTO noticia (titulo, contenido, imagen) VALUES (?, ?, ?)");
 
             for (int i = 0; i < titulosEnlaces.size(); i++) {
                 String titulo = titulosEnlaces.get(i);
@@ -222,17 +259,52 @@ public class ControladorBaseDeDatos {
             System.out.println("Inserción correcta");
 
             // Cerramos la conexión y la sentencia
-            sentencia.close();
-            conexion.close();
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }finally {
+            try{
+                sentencia.close();
+                conexion.close();
+            }catch (SQLException e ){
+                e.printStackTrace();
+            }
         }
     }
-    public static void insertarPartido(){
+
+    private static boolean existeNoticia(String titulo) {
+        PreparedStatement sentencia = null;
+        try {
+            // Creamos una sentencia SQL preparada para realizar la consulta
+             sentencia = conexion.prepareStatement("SELECT COUNT(*) FROM noticia WHERE titulo = ?");
+            sentencia.setString(1, titulo);
+
+            // Ejecutamos la consulta y obtenemos el resultado
+            ResultSet resultado = sentencia.executeQuery();
+            resultado.next();
+            int count = resultado.getInt(1);
+
+            resultado.close();
+
+            return count > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        finally {
+            try{
+                sentencia.close();
+            }catch (SQLException e ){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void insertarPartido() {
         try {
             Document documento = Jsoup.connect("https://www.marca.com/futbol/primera-division/calendario.html").get();
 
@@ -240,7 +312,7 @@ public class ControladorBaseDeDatos {
 
             int numeroJornada = 1; // Inicializamos el número de la jornada
 
-            Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
+            Connection conexion = DriverManager.getConnection(url1, usuario, contraseña);
 
             for (Element jornadaDiv : contenedor) {
                 Element jornadaElement = jornadaDiv.selectFirst("div.cal-agendas.calendario");
@@ -259,11 +331,20 @@ public class ControladorBaseDeDatos {
                             String nombreLocal = local.text();
                             String nombreVisitante = visitante.text();
                             String resultadoPartido = resultado.text();
-                            Partido partido = new Partido();
-                            partido.setEquipoLocal(nombreLocal);
-                            partido.setEquipoVisitante(nombreVisitante);
-                            partido.setResultado(resultadoPartido);
 
+                            // Verificar si el partido ya existe en la base de datos
+                            String consultaSql = "SELECT * FROM partido WHERE jornada = ? AND equipo_local = ? AND equipo_visitante = ?";
+                            PreparedStatement consultaStatement = conexion.prepareStatement(consultaSql);
+                            consultaStatement.setInt(1, numeroJornada);
+                            consultaStatement.setString(2, nombreLocal);
+                            consultaStatement.setString(3, nombreVisitante);
+                            ResultSet resultadoConsulta = consultaStatement.executeQuery();
+
+                            // Si el resultado de la consulta tiene alguna fila, el partido ya existe
+                            if (resultadoConsulta.next()) {
+                                System.out.println("El partido ya existe: " + nombreLocal + " vs " + nombreVisitante);
+                                continue; // Pasar al siguiente partido sin realizar la inserción
+                            }
 
                             // Realizar la inserción en la tabla partido
                             String sql = "INSERT INTO partido (jornada, equipo_local, equipo_visitante, resultado) VALUES (?, ?, ?, ?)";
@@ -280,22 +361,29 @@ public class ControladorBaseDeDatos {
                 }
             }
             System.out.println("Partidos añadidos correctamente");
-            // Cerrar la conexión con la base de datos
-            conexion.close();
+
         } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+        } finally {
+            try {
+                conexion.close();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
         }
     }
-    public static List<Partido> consultarPartido(){
-        partidos = new ArrayList<>();
-        try {
 
-            Connection conexion = DriverManager.getConnection(url, usuario, contraseña);
+    public static ArrayList<Partido> consultarPartido() {
+        partidos = new ArrayList<>();
+        PreparedStatement sentencia = null;
+        Connection conexion = null;
+        try {
+            conexion = DriverManager.getConnection(url1, usuario, contraseña);
 
             // Realizar la consulta a la tabla partido
             String sql = "SELECT * FROM partido";
-            PreparedStatement statement = conexion.prepareStatement(sql);
-            ResultSet resultado = statement.executeQuery();
+            sentencia = conexion.prepareStatement(sql);
+            ResultSet resultado = sentencia.executeQuery();
 
             // Recorrer el resultado de la consulta y mostrar los valores
             while (resultado.next()) {
@@ -308,122 +396,64 @@ public class ControladorBaseDeDatos {
                 // Crear un objeto Partido y añadirlo a la lista
                 Partido partido = new Partido(jornada, equipoLocal, equipoVisitante, resultadoPartido);
                 partidos.add(partido);
-
-                System.out.println("ID: " + id);
-                System.out.println("Jornada: " + jornada);
-                System.out.println("Equipo Local: " + equipoLocal);
-                System.out.println("Equipo Visitante: " + equipoVisitante);
-                System.out.println("Resultado: " + resultadoPartido);
-                System.out.println("-----------------------");
             }
 
             // Cerrar la conexión con la base de datos
             resultado.close();
-            statement.close();
-            conexion.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            try {
+                if (sentencia != null) {
+                    sentencia.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return partidos;
     }
-    public static void consultarNoticias() {
-        try {
-            // Cargamos el driver de MySQL
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            // Establecemos la conexión con la base de datos
-            conexion = DriverManager.getConnection(url, usuario, contraseña);
 
-            // Creamos la consulta SQL para obtener los datos de la tabla
+    public static ArrayList<Noticia> consultarNoticias() {
+        noticias = new ArrayList<>();
+        Statement sentencia = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conexion = DriverManager.getConnection(url1, usuario, contraseña);
+
             String consulta = "SELECT titulo, contenido, imagen FROM noticia";
 
-            // Creamos una sentencia SQL preparada para la consulta
-            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+             sentencia = conexion.prepareStatement(consulta);
 
-            // Ejecutamos la consulta y obtenemos el resultado
-            ResultSet resultado = sentencia.executeQuery();
+            ResultSet resultado = sentencia.executeQuery(consulta);
 
-            // Recorremos el resultado y mostramos los datos
             while (resultado.next()) {
                 String titulo = resultado.getString("titulo");
-                String contenido = resultado.getString("contenido");
+                String texto = resultado.getString("contenido");
                 String imagen = resultado.getString("imagen");
-
-                System.out.println("Título: " + titulo);
-                System.out.println("Contenido: " + contenido);
-                System.out.println("Imagen: " + imagen);
-                System.out.println("-----------------------");
+                Noticia noticia = new Noticia(titulo, texto, imagen);
+                noticias.add(noticia);
             }
 
-            // Cerramos la conexión, la sentencia y el resultado
             resultado.close();
             sentencia.close();
-            conexion.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-    }
-    public static void consultarTitulosImagenes() {
-        ArrayList<String> Titulos = new ArrayList<>();
-        ArrayList<String> Imagenes = new ArrayList<>();
-        try {
-            // Cargamos el driver de MySQL
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            // Establecemos la conexión con la base de datos
-            conexion = DriverManager.getConnection(url, usuario, contraseña);
+        }finally {
+            try {
 
-            // Creamos la consulta SQL para obtener los datos de la tabla
-            String consulta = "SELECT titulo, imagen FROM noticia";
-
-            // Creamos una sentencia SQL preparada para la consulta
-            PreparedStatement sentencia = conexion.prepareStatement(consulta);
-
-            // Ejecutamos la consulta y obtenemos el resultado
-            ResultSet resultado = sentencia.executeQuery();
-
-            // Recorremos el resultado y mostramos los datos
-            while (resultado.next()) {
-                String titulo = resultado.getString("titulo");
-                String imagen = resultado.getString("imagen");
-
-                System.out.println("Título: " + titulo);
-                System.out.println("Imagen: " + imagen);
-                System.out.println("-----------------------");
-                Titulos.add(titulo);
-                Imagenes.add(imagen);
+                conexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-
-            // Cerramos la conexión, la sentencia y el resultado
-            resultado.close();
-            sentencia.close();
-            conexion.close();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+        return noticias;
     }
 
-
-
-
-
-
-
-
-    public static void main(String[] args) {
-        crearConexion();
-        eliminarTablaNoticia();
-        eliminarTablaPartido();
-        crearTablaPartido();
-        crearTablaNoticia();
-        insertarNoticia();
-        insertarPartido();
-     consultarPartido();
-        cerrarConexion();
-
-
-
-    }}
+}
 

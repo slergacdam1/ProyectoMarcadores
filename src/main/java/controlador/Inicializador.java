@@ -12,9 +12,10 @@ public class Inicializador extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Inicializador.class.getResource("/vista/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 600);
         stage.setResizable(false);
-        stage.setTitle("Hello!");
+        stage.setTitle("Inicio de sesion");
         stage.setScene(scene);
         stage.show();
+        controladorBaseDeDatos.generarBaseDeDatosCompleta();
     }
 
     public static void main(String[] args) {

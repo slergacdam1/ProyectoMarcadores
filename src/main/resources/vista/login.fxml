@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.loginController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: #8AA9A7;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.loginController">
    <children>
-      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="600.0" text="Usuario" VBox.vgrow="ALWAYS">
+      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="600.0" text="Usuario" textFill="WHITE" VBox.vgrow="ALWAYS">
          <font>
-            <Font size="31.0" />
+            <Font name="Verdana Pro Cond Bold Italic" size="31.0" />
          </font>
          <padding>
             <Insets top="140.0" />
@@ -23,9 +23,9 @@
             <Insets left="240.0" right="240.0" top="25.0" />
          </VBox.margin>
       </TextField>
-      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="100.0" text="Contraseña" VBox.vgrow="ALWAYS">
+      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="100.0" style="-fx-background-color: #8AA9A7;" text="Contraseña" textFill="WHITE" VBox.vgrow="ALWAYS">
          <font>
-            <Font size="31.0" />
+            <Font name="Verdana Pro Cond Bold Italic" size="31.0" />
          </font>
          <padding>
             <Insets top="10.0" />

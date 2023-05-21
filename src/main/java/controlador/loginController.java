@@ -27,23 +27,17 @@ public class loginController {
             credenciales.setOpacity(1.0);
         }
         else {
-            System.out.println(usuario.getText() + contraseña.getText() + "\n" + "Has iniciado sesion");
+
             Stage stage = (Stage) usuario.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/noticias.fxml"));
             // Crear una instancia de la nueva ventana
             try {
                 Scene scene = new Scene(loader.load(), 600, 600);
-                stage.setTitle("- Ejemplo sencillo de aplicación JavaFX -");
+                stage.setTitle("Noticias");
                 stage.setScene(scene);
                 stage.show();
-
-
                 controladorNoticias controlador = loader.getController();
                 controlador.actualizarNoticia();
-                controlador.asignarId();
-
-
-
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
